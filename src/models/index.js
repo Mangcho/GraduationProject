@@ -4,6 +4,8 @@ const env = process.env;
 const { Sequelize, DataTypes } = require("sequelize");
 const config = require("../setting/sequalize/config.js")[env.NODE_ENV];
 
+const whitelist = require('./whitelist');
+
 const db = {};
 
 const sequelize = new Sequelize(
@@ -13,16 +15,14 @@ const sequelize = new Sequelize(
   config
 );
 
+
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-sequelize
-  .sync({ force: false })
-  .then(() => {
-    console.log("데이터베이스 연결됨.");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+db.whitelist = whitelist;
+whitelist.init(sequelize);
+
+
+
 
 module.exports = db;

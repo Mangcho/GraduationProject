@@ -7,6 +7,12 @@ const development = {
   database: env.DB_NAME,
   host: env.DB_HOST,
   dialect: "mysql",
+  pool: {
+    max: 30,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
   //port: env.MYSQL_PORT
 };
 
@@ -16,16 +22,14 @@ const production = {
   database: env.DB_NAME,
   host: env.DB_HOST,
   dialect: "mysql",
+  logging: false,
+  pool: {
+    max: 30,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
   //port: env.MYSQL_PORT
 };
 
-const test = {
-  username: env.DB_USER,
-  password: env.DB_PW,
-  database: env.DB_NAME,
-  host: env.DB_HOST,
-  dialect: "mysql",
-  //port: env.MYSQL_PORT
-};
-
-module.exports = { development, production, test };
+module.exports = { development, production};

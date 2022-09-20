@@ -7,12 +7,16 @@ class Whitelist extends Model {
                 imei: {
                     type: DataTypes.STRING(10),
                     allowNull: false,
-                    primaryKey: true
+                    primaryKey: true,
+                    validate: {
+                        isAlphanumeric: true,
+                        len: [10]
+                    }
                 }
             },
             {
                 sequelize, // We need to pass the connection instance
-                modelName: 'Whitelist', // We need to choose the model name
+                modelName: 'whitelist', // We need to choose the model name
                 timestamps: true,
                 updatedAt: false,
                 paranoid: true, // deletedAt

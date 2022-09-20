@@ -4,7 +4,9 @@ const env = process.env;
 const { Sequelize, DataTypes } = require("sequelize");
 const config = require("../setting/sequalize/config.js")[env.NODE_ENV];
 
-const whitelist = require('./whitelist');
+// Model Import
+const Whitelist = require('./whitelist');
+const User = require('./user.js');
 
 const db = {};
 
@@ -15,14 +17,16 @@ const sequelize = new Sequelize(
   config
 );
 
-
 db.Sequelize = Sequelize;
+
+// Linking model to db
 db.sequelize = sequelize;
+db.whitelist = Whitelist;
+db.user = User;
 
-db.whitelist = whitelist;
-whitelist.init(sequelize);
-
-
+// Model Init
+Whitelist.init(sequelize);
+User.init(sequelize);
 
 
 module.exports = db;

@@ -1,12 +1,17 @@
+// Dependencies
 const express = require('express');
 require('dotenv').config()
 const path = require('path');
 const db = require('./models');
+const session = require('express-session');
 
+
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
+
 db.sequelize
-  .sync()
+  .sync({force: true}) // DROP EVERY EXISTING TABLE
   .then(() => {
     console.log("데이터베이스 연결됨.");
   })
@@ -15,6 +20,18 @@ db.sequelize
   });
 
 
+app.use(
+  session({ // Options for express-session
+    secret: process.env.SECRET_KEY,
+    store: new SequelizeStore({ // Options for connect-session-sequelize
+      db: db.sequelize,
+      tableName:"sessions"
+    }),
+    saveUninitialized: false,
+    resave:false,
+    proxy: false
+  })
+)
 
 app.use(express.static(path.join(__dirname, "build")));
 app.use(express.json());

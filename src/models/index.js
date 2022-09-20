@@ -2,7 +2,7 @@ require('dotenv').config();
 const env = process.env;
 
 const { Sequelize, DataTypes } = require("sequelize");
-const config = require("../setting/sequalize/config.js")[env.NODE_ENV];
+const config = require("../setting/sequelize/config.js")[env.NODE_ENV];
 
 // Model Import
 const Whitelist = require('./whitelist');

@@ -9,21 +9,17 @@ class Data extends Model { // Not finished
                     allowNull: false,
                     primaryKey: true,
                     validate: {
-                        isEmail: true,
-                        len: [3,35]
+                        isAlphanumeric: true,
+                        len: [10]
                     }
                 },
                 timestamp: {
-                    type: DataTypes.STRING(64),
+                    type: DataTypes.DATE,
                     allowNull: false,
-                    validate: {
-                        len: [64]
-                    }
                 },
-                whitelist_imei: {
-                    type: DataTypes.STRING(10),
+                result: {
+                    type: DataTypes.JSON,
                     allowNull: false,
-
                 }
             },
             {
@@ -34,8 +30,12 @@ class Data extends Model { // Not finished
                 paranoid: true, // deletedAt
                 charset: 'utf8',
                 collate: 'utf8_general_ci'
-            }
-        )
+            });
+    }
+
+    static associate(db) {
+        db.data.belongsTo(db.whitelist, {foreignKey:'whitelist_imei', targetKey:'imei', onDelete: 'cascade', onUpdate: 'cascade'});
+
     }
 
 

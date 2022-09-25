@@ -22,8 +22,11 @@ class Whitelist extends Model {
                 paranoid: true, // deletedAt
                 charset: 'utf8',
                 collate: 'utf8_general_ci'
-            }
-        )
+            });
+    }
+
+    static associate(db) {
+        db.whitelist.hasOne(db.data, {foreignKey:'whitelist_imei', sourceKey:'imei', onDelete: 'cascade', onUpdate: 'cascade'});
     }
 
 

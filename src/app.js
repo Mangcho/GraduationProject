@@ -48,8 +48,13 @@ app.use((err, req, res, next) => {
   res.status(500).end();
 })
 
-app.listen(process.env.PORT, () => {
-  console.log("==================");
-  console.log("Server Started!");
-  console.log("==================");
-}); 
+async function startServer(){
+  app.listen(process.env.PORT, () => {
+    console.log("==================");
+    console.log("Server Started!");
+    console.log("==================");
+  }); 
+}
+
+
+startServer();

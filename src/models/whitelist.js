@@ -26,7 +26,8 @@ class Whitelist extends Model {
     }
 
     static associate(db) {
-        db.whitelist.hasOne(db.data, {foreignKey:'whitelist_imei', sourceKey:'imei', onDelete: 'cascade', onUpdate: 'cascade'});
+        db.whitelist.hasMany(db.data, {foreignKey:'whitelist_imei', sourceKey:'imei', onDelete: 'cascade', onUpdate: 'cascade'});
+        db.whitelist.hasOne(db.user, {foreignKey:'whitelist_imei', sourceKey:'imei', onDelete: 'cascade', onUpdate: 'cascade'})
     }
 
 

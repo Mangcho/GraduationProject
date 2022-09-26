@@ -38,6 +38,10 @@ class User extends Model {
         )
     }
 
+    static associate(db) {
+        db.user.belongsTo(db.whitelist, {foreignKey:'whitelist_imei', targetKey:'imei', onDelete: 'cascade', onUpdate: 'cascade'});
+    }
+
 
 }
 

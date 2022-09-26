@@ -11,14 +11,13 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 
 db.sequelize
-  .sync({force: true}) // DROP EVERY EXISTING TABLE
+  .sync({force: true}) // DROP EVERY EXISTING TABLE when force = true
   .then(() => {
-    console.log("데이터베이스 연결됨.");
+    console.log("### DATABASE CONNECTED!!! ###");
   })
   .catch((err) => {
     console.error(err);
   });
-
 
 app.use(
   session({ // Options for express-session

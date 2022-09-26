@@ -34,6 +34,7 @@ Data.init(sequelize);
 // Model Association
 Whitelist.associate(db);
 Data.associate(db);
+User.associate(db);
 
 
 module.exports = db;

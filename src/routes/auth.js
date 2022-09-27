@@ -1,6 +1,6 @@
 const express = require('express');
 
-const wrapper = require('./utils/wrapper.js'); // async Wrapper
+const wrapper = require('../utils/wrapper.js'); // async Wrapper
 const AuthService = require('../services/auth')
 
 const router = express.Router();

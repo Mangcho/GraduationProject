@@ -1,15 +1,20 @@
-// Dependencies
+// Dependencies import
 const express = require('express');
+const app = express(); // ?
 require('dotenv').config()
 const path = require('path');
 const db = require('./models');
 const session = require('express-session');
-
-
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-const app = express();
+// Router import
+const auth = require('./routes/auth');
 
+// utils import
+const wrapper = require('./utils/wrapper.js');
+
+// Settings
+// DB load and set
 db.sequelize
   .sync({force: true}) // DROP EVERY EXISTING TABLE when force = true
   .then(() => {
@@ -19,6 +24,7 @@ db.sequelize
     console.error(err);
   });
 
+// session set
 app.use(
   session({ // Options for express-session
     secret: process.env.SECRET_KEY,
@@ -37,7 +43,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-const wrapper = require('./utils/wrapper.js'); // async Wrapper
+
+// Routings
+app.post('/api/login', auth);
 
 app.get("*", wrapper(async (req, res) => {
   res.sendFile(path.join(__dirname, "build/index.html"));
@@ -55,6 +63,5 @@ async function startServer(){
     console.log("==================");
   }); 
 }
-
 
 startServer();

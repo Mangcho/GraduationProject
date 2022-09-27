@@ -8,7 +8,7 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Router import
-const auth = require('./routes/auth');
+const auth = require('./routes/api/auth');
 
 // utils import
 const wrapper = require('./utils/wrapper.js');

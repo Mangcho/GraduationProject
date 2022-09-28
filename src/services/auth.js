@@ -1,5 +1,5 @@
 const UserModel = require('../models/user');
-
+const Whitelist = require('../models/whitelist');
 // utils
 const crypto = require('../utils/crypt');
 
@@ -23,19 +23,25 @@ class AuthService {
      */
     async SignIn(userDto) { // log-in
         const hashedPW = crypto.GetHash(userDto.password);
-
+        const test = await Whitelist.create({ imei: "1234567890" })
+        const testFunc = await UserModel.create({ id: userDto.id, password: hashedPW, whitelist_imei: "1234567890" });
         const isUserExist = await UserModel.findOne({
             where: {
                 id: userDto.id,
                 password: hashedPW
             }
         })
-        if (isUserExist == null) {
-            return false
-        } else {
-            return true
-        }
+            .then((result) => {
+                console.log(result)
+                if (result === null) {
+                    return false
+                } else {
+                    return true
+                }
+            })
+            .catch()
+
     }
 }
 
-module.exports = AuthService;
+module.exports = { AuthService };

@@ -1,7 +1,7 @@
-const {Sequelize, DataTypes, Model} = require('sequelize');
- 
+const { Sequelize, DataTypes, Model } = require('sequelize');
+
 class Data extends Model { // Not finished
-    static init(sequelize){
+    static init(sequelize) {
         super.init(
             {
                 whitelist_imei: {
@@ -34,7 +34,7 @@ class Data extends Model { // Not finished
     }
 
     static associate(db) {
-        db.data.belongsTo(db.whitelist, {foreignKey:'whitelist_imei', targetKey:'imei', onDelete: 'cascade', onUpdate: 'cascade'});
+        db.data.belongsTo(db.whitelist, { foreignKey: 'whitelist_imei', targetKey: 'imei', onDelete: 'cascade', onUpdate: 'cascade' });
 
     }
 

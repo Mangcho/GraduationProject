@@ -9,6 +9,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Router import
 const auth = require('./routes/api/auth');
+const pi = require('./routes/pi/pi');
 
 // utils import
 const wrapper = require('./utils/wrapper.js');
@@ -16,7 +17,7 @@ const wrapper = require('./utils/wrapper.js');
 // Settings
 // DB load and set
 db.sequelize
-  .sync({force: true}) // DROP EVERY EXISTING TABLE when force = true
+  .sync({ force: true }) // DROP EVERY EXISTING TABLE when force = true
   .then(() => {
     console.log("### DATABASE CONNECTED!!! ###");
   })
@@ -30,10 +31,10 @@ app.use(
     secret: process.env.SECRET_KEY,
     store: new SequelizeStore({ // Options for connect-session-sequelize
       db: db.sequelize,
-      tableName:"sessions"
+      tableName: "sessions"
     }),
     saveUninitialized: false,
-    resave:false,
+    resave: false,
     proxy: false
   })
 )
@@ -46,6 +47,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routings
 app.post('/api/login', auth);
+app.post('/pi', pi);
 
 app.get("*", wrapper(async (req, res) => {
   res.sendFile(path.join(__dirname, "build/index.html"));
@@ -56,12 +58,12 @@ app.use((err, req, res, next) => {
   res.status(500).end();
 })
 
-async function startServer(){
+async function startServer() {
   app.listen(process.env.PORT, () => {
     console.log("==================");
     console.log("Server Started!");
     console.log("==================");
-  }); 
+  });
 }
 
 startServer();

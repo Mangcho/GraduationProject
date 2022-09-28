@@ -1,7 +1,7 @@
-const {Sequelize, DataTypes, Model} = require('sequelize');
- 
+const { Sequelize, DataTypes, Model } = require('sequelize');
+
 class User extends Model {
-    static init(sequelize){
+    static init(sequelize) {
         super.init(
             {
                 id: {
@@ -10,7 +10,7 @@ class User extends Model {
                     primaryKey: true,
                     validate: {
                         isEmail: true,
-                        len: [3,35]
+                        len: [3, 35]
                     }
                 },
                 password: {
@@ -39,7 +39,7 @@ class User extends Model {
     }
 
     static associate(db) {
-        db.user.belongsTo(db.whitelist, {foreignKey:'whitelist_imei', targetKey:'imei', onDelete: 'cascade', onUpdate: 'cascade'});
+        db.user.belongsTo(db.whitelist, { foreignKey: 'whitelist_imei', targetKey: 'imei', onDelete: 'cascade', onUpdate: 'cascade' });
     }
 
 

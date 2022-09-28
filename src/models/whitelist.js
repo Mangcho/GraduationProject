@@ -1,7 +1,7 @@
-const {Sequelize, DataTypes, Model} = require('sequelize');
- 
+const { Sequelize, DataTypes, Model } = require('sequelize');
+
 class Whitelist extends Model {
-    static init(sequelize){
+    static init(sequelize) {
         super.init(
             {
                 imei: {
@@ -26,8 +26,8 @@ class Whitelist extends Model {
     }
 
     static associate(db) {
-        db.whitelist.hasMany(db.data, {foreignKey:'whitelist_imei', sourceKey:'imei', onDelete: 'cascade', onUpdate: 'cascade'});
-        db.whitelist.hasOne(db.user, {foreignKey:'whitelist_imei', sourceKey:'imei', onDelete: 'cascade', onUpdate: 'cascade'})
+        db.whitelist.hasMany(db.data, { foreignKey: 'whitelist_imei', sourceKey: 'imei', onDelete: 'cascade', onUpdate: 'cascade' });
+        db.whitelist.hasOne(db.user, { foreignKey: 'whitelist_imei', sourceKey: 'imei', onDelete: 'cascade', onUpdate: 'cascade' })
     }
 
 

@@ -9,7 +9,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Router import
 const auth = require('./routes/api/auth');
-const pi = require('./routes/pi/pi');
+const pi = require('./routes/pi');
 
 // utils import
 const wrapper = require('./utils/wrapper.js');

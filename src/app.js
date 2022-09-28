@@ -17,7 +17,7 @@ const wrapper = require('./utils/wrapper.js');
 // Settings
 // DB load and set
 db.sequelize
-  .sync({ force: true }) // DROP EVERY EXISTING TABLE when force = true
+  .sync({force: process.env.NODE_ENV === 'production' ? true : false }) // DROP EVERY EXISTING TABLE when force = true
   .then(() => {
     console.log("### DATABASE CONNECTED!!! ###");
   })

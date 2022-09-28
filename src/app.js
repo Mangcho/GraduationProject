@@ -39,7 +39,7 @@ app.use(
   })
 )
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -50,7 +50,7 @@ app.post('/api/login', auth);
 app.post('/pi', pi);
 
 app.get("*", wrapper(async (req, res) => {
-  res.sendFile(path.join(__dirname, "build/index.html"));
+  res.sendFile(path.join(__dirname, "public/index.html"));
 }));
 
 app.use((err, req, res, next) => {

@@ -33,11 +33,7 @@ class AuthService {
         })
             .then((result) => {
                 console.log(result)
-                if (result === null) {
-                    return false
-                } else {
-                    return true
-                }
+                return result ? true : false;
             })
             .catch()
 

@@ -1,8 +1,9 @@
-2022년도 2학기 졸업프로젝트
-==============================
+# 2022년도 2학기 졸업프로젝트
+
 ### Version 0.2
 
 ## 프로젝트 설명
+
 ![프로젝트 메인 구성](https://user-images.githubusercontent.com/46319374/192773251-5bc993ba-b498-42ce-a3b3-899dcba3efc3.jpg)
 
 본 프로젝트는 척추 부근에 센서를 달아 얻는 정보를 통해 사용자의 현재 허리 상태를 측정하고 이를 처리하여 사용자가 현재 자신의 허리 자세를 인지하고 올바른 자세를 취할 수 있게 하는 목표를 가지고 있습니다.
@@ -19,18 +20,24 @@
 본 레포지토리에서는 **백엔드 서버인 ExpressJS** 만 다룹니다.
 
 ## 디렉토리 설명
-1. ~~/build~~ : React.js에서 빌드된 파일들이 존재하는 곳입니다. 본 디렉토리에서는 다루지 않습니다.
-2. /models : DB에서 사용하는 Table의 정의가 저장되는 곳입니다. 
+
+1. ~~/public~~ : React.js에서 빌드된 파일들이 존재하는 곳입니다. 본 디렉토리에서는 다루지 않습니다.
+2. /models : DB에서 사용하는 Table의 정의가 저장되는 곳입니다.
    - /index.js : Sequelize ORM을 사용하여 기본 설정 및 Table을 만들어줍니다.
-3. ~~/public~~ : 현재 없음
-4. /routes : 현재 없음
+3. /routes : REST 요청에 따른 라우팅 처리를 진행합니다. 프론트와 axios로 통신합니다.
+4. /services : 뭐라고 쓸지 모르겠지만, 아마도 곧 쓸 예정입니다.
 5. /setting : .env를 **제외한** 다른 기본 설정 파일들이 존재합니다.
    - /database : mysql2 모듈을 위한 설정 파일입니다. (미사용)
    - /sequelize : sequelize 설정값이 저장되어 있습니다.
 6. /utils : 자주 사용하는 함수들이 저장되어 있습니다.
 
-
 ## 개발 스택
-* Framework : Expressjs
-* Database : MariaDB
 
+- Framework : Expressjs
+- Database : MariaDB, Sequelize(ORM)
+
+## DB 테이블 설명
+
+1. whitelist :
+2. user :
+3. data :

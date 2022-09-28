@@ -1,10 +1,10 @@
 const express = require('express');
 
-const wrapper = require('./../../utils/wrapper'); // async Wrapper
+const wrapper = require('../utils/wrapper'); // async Wrapper
 
 
 //named export vs default export
-const { piDataService } = require('../../services/pi');
+const { piDataService } = require('../services/pi');
 
 // WHY????
 const pi = new piDataService();

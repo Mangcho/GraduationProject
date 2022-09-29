@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
-class Data extends Model { // Not finished
+class Rasbpi extends Model { // Not finished
     static init(sequelize) {
         super.init(
             {
@@ -17,6 +17,10 @@ class Data extends Model { // Not finished
                     type: DataTypes.DATE,
                     allowNull: false,
                 },
+                raw: {
+                    type: DataTypes.JSON,
+                    allowNull: false,
+                },
                 result: {
                     type: DataTypes.JSON,
                     allowNull: false,
@@ -24,7 +28,7 @@ class Data extends Model { // Not finished
             },
             {
                 sequelize, // We need to pass the connection instance
-                modelName: 'data', // We need to choose the model name
+                modelName: 'rasbpies', // We need to choose the model name
                 timestamps: true,
                 updatedAt: true,
                 paranoid: true, // deletedAt
@@ -41,4 +45,4 @@ class Data extends Model { // Not finished
 
 }
 
-module.exports = Data;
+module.exports = Rasbpi;

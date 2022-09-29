@@ -9,9 +9,7 @@ const router = express.Router();
 router.post('/api/login', wrapper(async (req, res) => {
     const userDto = { id: req.body.id, password: req.body.password };
     const status = auth.SignIn(userDto)
-        .then((a) => {
-            console.log(a);
-        })
+    console.log(status); // TEST
     if (status) {
         req.session.isAuth = true;
     }

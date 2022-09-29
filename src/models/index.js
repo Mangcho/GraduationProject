@@ -7,7 +7,7 @@ const config = require("../setting/sequelize/config.js")[env.NODE_ENV];
 // Model Import
 const Whitelist = require('./whitelist');
 const User = require('./user.js');
-const Data = require('./data.js');
+const Rasbpi = require('./rasbpi.js');
 
 const db = {};
 
@@ -24,16 +24,16 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.whitelist = Whitelist;
 db.user = User;
-db.data = Data;
+db.data = Rasbpi;
 
 // Model Init
 Whitelist.init(sequelize);
 User.init(sequelize);
-Data.init(sequelize);
+Rasbpi.init(sequelize);
 
 // Model Association
 Whitelist.associate(db);
-Data.associate(db);
+Rasbpi.associate(db);
 User.associate(db);
 
 

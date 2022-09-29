@@ -9,7 +9,9 @@ const router = express.Router();
 router.post('/api/login', wrapper(async (req, res) => {
     const userDto = { id: req.body.id, password: req.body.password };
     const status = auth.SignIn(userDto)
-    console.log(status); // TEST
+        .then((a) => {
+            console.log("hello : ", a)
+        })
     if (status) {
         req.session.isAuth = true;
     }

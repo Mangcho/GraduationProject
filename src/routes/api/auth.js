@@ -6,7 +6,7 @@ const auth = new AuthService();
 
 const router = express.Router();
 
-router.post('/api/login', wrapper(async (req, res) => {
+router.post('/login', wrapper(async (req, res) => {
     const userDto = { id: req.body.id, password: req.body.password };
     const status = auth.SignIn(userDto)
         .then((result) => {

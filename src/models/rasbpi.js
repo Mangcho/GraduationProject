@@ -38,7 +38,7 @@ class Rasbpi extends Model { // Not finished
     }
 
     static associate(db) {
-        db.data.belongsTo(db.whitelist, { foreignKey: 'whitelist_imei', targetKey: 'imei', onDelete: 'cascade', onUpdate: 'cascade' });
+        db.data.belongsTo(db.whitelist, { foreignKey: 'whitelist_imei', targetKey: 'imei', onDelete: 'delete', onUpdate: 'cascade' });
 
     }
 

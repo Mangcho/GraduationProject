@@ -33,7 +33,7 @@ class User extends Model {
                     }
                 },
                 age: {
-                    type: DataTypes.NUMBER(3).UNSIGNED,
+                    type: DataTypes.INTEGER(4).UNSIGNED,
                     allowNull: false,
                     validate: {
                         len: [0, 3]

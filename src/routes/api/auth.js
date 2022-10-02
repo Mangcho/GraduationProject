@@ -7,9 +7,9 @@ const auth = new AuthService();
 const router = express.Router();
 
 router.post('/login', wrapper(async (req, res) => {
-    const userDto = { id: req.body.id, password: req.body.password };
-    const state = await auth.SignIn(userDto)
-    state ? (req.session.isAuth = true) : ""
+    const createUserDto = { id: req.body.id, password: req.body.password };
+    const state = await auth.SignIn(createUserDto)
+    req.session.isAuth = state ? true : false
     return res.json({ state: state })
 }))
 

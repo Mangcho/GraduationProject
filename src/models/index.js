@@ -9,7 +9,7 @@ const Whitelist = require('./whitelist');
 const User = require('./user.js');
 const Rasbpi = require('./rasbpi.js');
 
-const db = {};
+const db = Sequelize;
 
 const sequelize = new Sequelize(
   config.database,
@@ -17,8 +17,6 @@ const sequelize = new Sequelize(
   config.password,
   config
 );
-
-db.Sequelize = Sequelize;
 
 // Linking model to db
 db.sequelize = sequelize;

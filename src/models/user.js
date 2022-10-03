@@ -24,6 +24,20 @@ class User extends Model {
                     type: DataTypes.STRING(10),
                     allowNull: false,
 
+                },
+                name: {
+                    type: DataTypes.STRING(10),
+                    allowNull: false,
+                    validate: {
+                        len: [0, 20]
+                    }
+                },
+                age: {
+                    type: DataTypes.INTEGER(4).UNSIGNED,
+                    allowNull: false,
+                    validate: {
+                        len: [0, 3]
+                    }
                 }
             },
             {

@@ -1,4 +1,4 @@
-const DataModel = require('../models/data');
+const RasbpiModel = require('../models/rasbpi');
 
 
 class piDataService {
@@ -10,7 +10,6 @@ class piDataService {
     /**
      * Save sensor data from rasberypi to DB
      * @param {Object} piDto - rasberypi Data Object
-     * @param {JSON} userDto.result - Pi Data
      */
     async SaveData(piDto) { // log-in
         console.log(piDto);

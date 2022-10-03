@@ -6,37 +6,38 @@ const GetHash = require('../utils/crypt');
 class AuthService {
 
     /**
-    * Register Account
+    * 계정 생성을 처리하는 서비스 (미정)
     * @param {JSON} newUserDto - User account info
-    * @param {String} newUserDto.id - Email ID of userDto.
-    * @param {String} newUserDto.password - Maximum 32 length password of userDto.
     */
     async SignUp(newUserDto) {
+        try {
+
+        } catch {
+
+        }
 
     }
 
     /**
-     * Login
-     * @param {JSON} userDto - User login info.
-     * @param {String} userDto.id - Email ID of userDto.
-     * @param {String} userDto.password - Maximum 32 length password of userDto.
+     * 로그인을 처리하는 서비스
+     * @param {JSON} userDto - 사용자 계정 정보를 담고 있는 객체 id와 password를 가지고 있음
      */
     async SignIn(userDto) { // log-in
-        const hashedPW = GetHash(userDto.password);
-        const test = await Whitelist.create({ imei: "1234567890" })
-        const testFunc = await UserModel.create({ id: userDto.id, password: hashedPW, whitelist_imei: "1234567890" });
-        const isUserExist = await UserModel.findOne({
-            where: {
-                id: userDto.id,
-                password: hashedPW
-            }
-        })
-            .then((result) => {
-                console.log(result)
-                return result ? true : false;
+        try {
+            const hashedPW = GetHash(userDto.password);
+            // test, testFunc는 로그인 테스트용 차후 삭제할 예정
+            const test = await Whitelist.create({ imei: "1234567890" })
+            const testFunc = await UserModel.create({ id: userDto.id, password: hashedPW, whitelist_imei: "1234567890", name: "hal", age: 2 });
+            const isUserExist = await UserModel.findOne({
+                where: {
+                    id: userDto.id,
+                    password: hashedPW
+                }
             })
-            .catch()
-
+            return isUserExist === null ? false : true
+        } catch {
+            // Something Error catch
+        }
     }
 }
 

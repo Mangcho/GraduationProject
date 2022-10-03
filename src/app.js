@@ -16,14 +16,16 @@ const wrapper = require("./utils/wrapper.js");
 
 // Settings
 // DB load and set
-db.sequelize
-  .sync({ force: process.env.NODE_ENV === "production" ? true : false }) // DROP EVERY EXISTING TABLE when force = true
-  .then(() => {
+async function synchronize(db) {
+  try {
+    const response = await db.sequelize
+      .sync({ force: process.env.NODE_ENV === "development" ? true : false }) // DROP EVERY EXISTING TABLE when force = true
     console.log("### DATABASE CONNECTED!!! ###");
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error(err);
-  });
+  }
+}
+
 
 // session set
 app.use(
@@ -46,7 +48,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routings
-app.use("/api/auth", authRouter);
+app.use("/api", authRouter);
 app.use("/pi", piRouter);
 
 app.get(
@@ -70,3 +72,4 @@ async function startServer() {
 }
 
 startServer();
+synchronize(db);

@@ -11,7 +11,8 @@ const pi = new piDataService();
 
 const router = express.Router();
 
-router.all('/pi', wrapper(async (req, res) => {
+// 미정
+router.post('/pi', wrapper(async (req, res) => {
     pi.SaveData(req.body);
     return res.status(200);
 }))

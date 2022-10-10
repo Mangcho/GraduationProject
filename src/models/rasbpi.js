@@ -5,7 +5,7 @@ class Rasbpi extends Model { // Not finished
         super.init(
             {
                 whitelist_imei: {
-                    type: DataTypes.STRING(40),
+                    type: DataTypes.STRING(10),
                     allowNull: false,
                     primaryKey: true,
                     validate: {
@@ -30,7 +30,8 @@ class Rasbpi extends Model { // Not finished
                 sequelize, // We need to pass the connection instance
                 modelName: 'rasbpies', // We need to choose the model name
                 timestamps: true,
-                updatedAt: true,
+                createdAt: false,
+                updatedAt: false,
                 paranoid: true, // deletedAt
                 charset: 'utf8',
                 collate: 'utf8_general_ci'

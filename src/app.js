@@ -4,28 +4,16 @@ const app = express(); // ?
 require("dotenv").config();
 const path = require("path");
 const db = require("./models");
+const sequelizeLoader = require('./loaders/sequelize');
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
-
-// Router import
-const authRouter = require("./routes/api/auth");
-const piRouter = require("./routes/pi");
 
 // utils import
 const wrapper = require("./utils/wrapper.js");
 
-// Settings
-// DB load and set
-async function synchronize(db) {
-  try {
-    const response = await db.sequelize
-      .sync({ force: process.env.NODE_ENV === "development" ? true : false }) // DROP EVERY EXISTING TABLE when force = true
-    console.log("### DATABASE CONNECTED!!! ###");
-  } catch (err) {
-    console.error(err);
-  }
-}
-
+// Router import
+const authRouter = require("./routes/api/auth");
+const piRouter = require("./routes/pi");
 
 // session set
 app.use(
@@ -72,4 +60,4 @@ async function startServer() {
 }
 
 startServer();
-synchronize(db);
+sequelizeLoader.synchronize(db);

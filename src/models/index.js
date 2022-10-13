@@ -34,5 +34,4 @@ Whitelist.associate(db);
 Rasbpi.associate(db);
 User.associate(db);
 
-
 module.exports = db;

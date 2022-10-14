@@ -8,7 +8,6 @@ class Rasbpi extends Model { // Not finished
                     type: DataTypes.INTEGER.UNSIGNED,
                     autoIncrement: true,
                     primaryKey: true
-
                 },
                 whitelist_imei: {
                     type: DataTypes.STRING(10),

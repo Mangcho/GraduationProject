@@ -25,9 +25,6 @@ class AuthService {
     async SignIn(userDto) { // log-in
         try {
             const hashedPW = GetHash(userDto.password);
-            // test, testFunc는 로그인 테스트용 차후 삭제할 예정
-            const test = await Whitelist.create({ imei: "1234567890" })
-            const testFunc = await UserModel.create({ id: userDto.id, password: hashedPW, whitelist_imei: "1234567890", name: "hal", age: 2 });
             const isUserExist = await UserModel.findOne({
                 where: {
                     id: userDto.id,

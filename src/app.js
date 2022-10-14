@@ -60,4 +60,6 @@ async function startServer() {
 }
 
 startServer();
-sequelizeLoader.synchronize(db);
+(async () => {
+  await sequelizeLoader.synchronize(db);
+})()

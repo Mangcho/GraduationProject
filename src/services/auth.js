@@ -1,12 +1,11 @@
 const UserModel = require('../models/user');
 const Whitelist = require('../models/whitelist');
-// utils
-const GetHash = require('../utils/crypt');
+const GetHash = require('../utils/crypt');// utils
 
 class AuthService {
 
     /**
-    * 계정 생성을 처리하는 서비스 (미정)
+    * 계정 생성을 처리하는 서비스
     * @param {JSON} newUserDto - User account info
     */
     async SignUp(newUserDto) {
@@ -39,6 +38,7 @@ class AuthService {
                     password: hashedPW
                 }
             })
+            console.log(isUserExist);
             return isUserExist === null ? false : true
         } catch {
             // Something Error catch

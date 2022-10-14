@@ -23,7 +23,7 @@ class Rasbpi extends Model { // Not finished
                 },
                 result: {
                     type: DataTypes.JSON,
-                    allowNull: false,
+                    allowNull: true,
                 }
             },
             {

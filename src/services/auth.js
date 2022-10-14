@@ -20,7 +20,7 @@ class AuthService {
 
     /**
      * 로그인을 처리하는 서비스
-     * @param {JSON} userDto - 사용자 계정 정보를 담고 있는 객체 id와 password를 가지고 있음
+     * @param {Object} userDto - 사용자 계정 정보를 담고 있는 객체 id와 password를 가지고 있음
      */
     async SignIn(userDto) { // log-in
         try {

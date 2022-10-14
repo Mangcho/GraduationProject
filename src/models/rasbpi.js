@@ -4,10 +4,15 @@ class Rasbpi extends Model { // Not finished
     static init(sequelize) {
         super.init(
             {
+                index: {
+                    type: DataTypes.INTEGER.UNSIGNED,
+                    autoIncrement: true,
+                    primaryKey: true
+
+                },
                 whitelist_imei: {
                     type: DataTypes.STRING(10),
                     allowNull: false,
-                    primaryKey: true,
                     validate: {
                         isAlphanumeric: true,
                         len: [10]
@@ -37,13 +42,10 @@ class Rasbpi extends Model { // Not finished
                 collate: 'utf8_general_ci'
             });
     }
-
     static associate(db) {
         db.data.belongsTo(db.whitelist, { foreignKey: 'whitelist_imei', targetKey: 'imei', onDelete: 'delete', onUpdate: 'cascade' });
 
     }
-
-
 }
 
 module.exports = Rasbpi;

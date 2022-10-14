@@ -1,31 +1,32 @@
 // Dependencies import
-const express = require("express");
-const app = express();
-require("dotenv").config();
-const path = require("path");
-const db = require("./models");
-const session = require("express-session");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
+import express from "express";
+import "./settings/env/env.js"; //dotenv
+import path from "path";
+import { db } from "./models/index.js";
+import session from "express-session";
+import SequelizeStore from "connect-session-sequelize";
+SequelizeStore(session.Store);
 
+const app = express();
 // Router import
-const authRouter = require("./routes/api/auth");
-const piRouter = require("./routes/pi");
+import authRouter from "./routes/api/auth.js";
+import piRouter from "./routes/pi.js";
 
 // utils import
-const wrapper = require("./utils/wrapper.js");
+import wrapper from "./utils/wrapper.js";
 
 // Settings
 // DB load and set
 async function synchronize(db) {
   try {
-    const response = await db.sequelize
-      .sync({ force: process.env.NODE_ENV === "development" ? true : false }) // DROP EVERY EXISTING TABLE when force = true
+    const response = await db.sequelize.sync({
+      force: process.env.NODE_ENV === "development" ? true : false,
+    }); // DROP EVERY EXISTING TABLE when force = true
     console.log("### DATABASE CONNECTED!!! ###");
   } catch (err) {
     console.error(err);
   }
 }
-
 
 // session set
 app.use(

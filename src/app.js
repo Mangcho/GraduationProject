@@ -48,7 +48,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routings
-app.use("/api", authRouter);
+app.use("/api/auth", authRouter);
 app.use("/pi", piRouter);
 
 app.get(

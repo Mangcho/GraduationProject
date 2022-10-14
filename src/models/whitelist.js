@@ -1,6 +1,6 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+import { Sequelize, DataTypes, Model } from 'sequelize';
 
-class Whitelist extends Model {
+export default class Whitelist extends Model {
     static init(sequelize) {
         super.init(
             {
@@ -32,5 +32,3 @@ class Whitelist extends Model {
 
 
 }
-
-module.exports = Whitelist;

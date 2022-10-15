@@ -1,4 +1,5 @@
 // Dependencies import
+
 import express from "express";
 import "./settings/env/env.js"; //dotenv
 import path from "path";
@@ -13,8 +14,10 @@ const app = express();
 import authRouter from "./routes/api/auth.js";
 import piRouter from "./routes/pi.js";
 
+
 // utils import
 import wrapper from "./utils/wrapper.js";
+
 
 
 
@@ -63,7 +66,6 @@ async function startServer() {
 }
 
 startServer();
-
 // DB load and set
 (async () => {
   await synchronize(db);

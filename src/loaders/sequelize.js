@@ -1,5 +1,5 @@
 //const db = require("./models");
-async function synchronize(db) {
+export default async function synchronize(db) {
     try {
         const response = await db.sequelize
             .sync({ force: process.env.NODE_ENV === "development" ? true : false }) // DROP EVERY EXISTING TABLE when force = true
@@ -8,5 +8,3 @@ async function synchronize(db) {
         console.error(err);
     }
 }
-
-module.exports = { synchronize };

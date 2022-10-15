@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const Whitelist = require('../models/whitelist');
 
-class Test {
+export default class Test {
     constructor() {
     }
     static init() {
@@ -11,5 +11,3 @@ class Test {
     }
 
 }
-
-module.exports = Test;

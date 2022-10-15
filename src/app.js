@@ -3,6 +3,7 @@ import express from "express";
 import "./settings/env/env.js"; //dotenv
 import path from "path";
 import { db } from "./models/index.js";
+import synchronize from "./loaders/sequelize.js";
 import session from "express-session";
 import SequelizeStore from "connect-session-sequelize";
 SequelizeStore(session.Store);
@@ -15,18 +16,7 @@ import piRouter from "./routes/pi.js";
 // utils import
 import wrapper from "./utils/wrapper.js";
 
-// Settings
-// DB load and set
-async function synchronize(db) {
-  try {
-    const response = await db.sequelize.sync({
-      force: process.env.NODE_ENV === "development" ? true : false,
-    }); // DROP EVERY EXISTING TABLE when force = true
-    console.log("### DATABASE CONNECTED!!! ###");
-  } catch (err) {
-    console.error(err);
-  }
-}
+
 
 // session set
 app.use(
@@ -73,4 +63,8 @@ async function startServer() {
 }
 
 startServer();
-synchronize(db);
+
+// DB load and set
+(async () => {
+  await synchronize(db);
+})()

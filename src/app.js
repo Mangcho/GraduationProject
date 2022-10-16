@@ -1,5 +1,4 @@
 // Dependencies import
-
 import express from "express";
 import "./settings/env/env.js"; //dotenv
 import path from "path";

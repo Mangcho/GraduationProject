@@ -1,4 +1,5 @@
 // Dependencies import
+
 import express from "express";
 import "./settings/env/env.js"; //dotenv
 import path from "path";
@@ -12,6 +13,7 @@ import SequelizeStore from "connect-session-sequelize";
 import authRouter from "./routes/api/auth.js";
 import piRouter from "./routes/pi.js";
 
+
 // utils import
 import wrapper from "./utils/wrapper.js";
 
@@ -21,6 +23,7 @@ const __dirname = path.dirname(__filename);
 
 const sequelizeSession = SequelizeStore(session.Store); // 반드시 질문 cjs to ESM
 const app = express();
+
 
 // session set
 app.use(
@@ -67,6 +70,5 @@ async function startServer() {
 }
 
 startServer();
-
 // DB load and set
 await synchronize(db);

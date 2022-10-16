@@ -20,5 +20,6 @@
     "mariadb": "^3.0.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.23.0"
-  }
+  },
+  "type":"module"
 }

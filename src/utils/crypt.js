@@ -1,9 +1,7 @@
-const crypto = require('node:crypto');
+import crypto from "node:crypto";
 
-function GetHash(data) {
+export default function GetHash(data) {
     const hash = crypto.createHash('sha256');
     hash.update(data);
     return hash.digest('hex');
 }
-
-module.exports = GetHash;

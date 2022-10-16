@@ -1,8 +1,8 @@
-const express = require('express');
-const wrapper = require('./../../utils/wrapper'); // async Wrapper
-const { AuthService } = require('../../services/auth');
-const auth = new AuthService();
+import express from "express";
+import wrapper from "../../utils/wrapper.js"; // async wrapper
+import AuthService from "../../services/auth.js";
 
+const auth = new AuthService();
 const router = express.Router();
 
 router.post('/login', wrapper(async (req, res) => {
@@ -18,4 +18,4 @@ router.post('/register', wrapper(async (req, res) => {
     return res.json({ state: state })
 }))
 
-module.exports = router;
+export default router

@@ -1,6 +1,6 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+import { Sequelize, DataTypes, Model } from 'sequelize';
 
-class Rasbpi extends Model { // Not finished
+export default class Rasbpi extends Model { // Not finished
     static init(sequelize) {
         super.init(
             {
@@ -46,5 +46,3 @@ class Rasbpi extends Model { // Not finished
 
     }
 }
-
-module.exports = Rasbpi;

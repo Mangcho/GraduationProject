@@ -1,8 +1,8 @@
-const UserModel = require('../models/user');
-const Whitelist = require('../models/whitelist');
-const GetHash = require('../utils/crypt');// utils
+import UserModel from "../models/user.js";
+import WhitelistModel from "../models/whitelist.js";
+import GetHash from "../utils/crypt.js"; // utils
 
-class AuthService {
+export default class AuthService {
 
     /**
     * 계정 생성을 처리하는 서비스
@@ -31,7 +31,7 @@ class AuthService {
 
             const hashedPW = GetHash(compareUserDto.password);
             // test, testFunc는 로그인 테스트용 차후 삭제할 예정
-            const test = await Whitelist.create({ imei: "1234567890" })
+            const test = await WhitelistModel.create({ imei: "1234567890" })
             const testFunc = await UserModel.create({ id: compareUserDto.id, password: hashedPW, whitelist_imei: "1234567890", name: "hal", age: 2 });
 
             const isUserExist = await UserModel.findOne({
@@ -47,5 +47,3 @@ class AuthService {
         }
     }
 }
-
-module.exports = { AuthService };

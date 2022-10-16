@@ -3,7 +3,7 @@ Function to make router func to async style route func
 
 */
 
-function wrapper(asyncFn) {
+export default function wrapper(asyncFn) {
   return (async (req, res, next) => {
     try {
       return await asyncFn(req, res, next);
@@ -12,5 +12,3 @@ function wrapper(asyncFn) {
     }
   });
 };
-
-module.exports = wrapper;

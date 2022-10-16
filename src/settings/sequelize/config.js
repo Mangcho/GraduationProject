@@ -1,4 +1,4 @@
-require('dotenv').config();
+import "../../settings/env/env.js";
 const env = process.env;
 
 const development = {
@@ -32,4 +32,4 @@ const production = {
   //port: env.MYSQL_PORT
 };
 
-module.exports = { development, production };
+export {development, production}

@@ -1,27 +1,35 @@
 // Dependencies import
-const express = require("express");
-const app = express();
-require("dotenv").config();
-const path = require("path");
-const db = require("./models");
-const sequelizeLoader = require('./loaders/sequelize');
-const session = require("express-session");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
-// utils import
-const wrapper = require("./utils/wrapper.js");
+import express from "express";
+import "./settings/env/env.js"; //dotenv
+import path from "path";
+import { fileURLToPath } from "url"; // dirname
+import { db } from "./models/index.js";
+import synchronize from "./loaders/sequelize.js";
+import session from "express-session";
+import SequelizeStore from "connect-session-sequelize";
 
 // Router import
-const authRouter = require("./routes/api/auth");
-const piRouter = require("./routes/pi");
+import authRouter from "./routes/api/auth.js";
+import piRouter from "./routes/pi.js";
+
+// utils import
+import wrapper from "./utils/wrapper.js";
+
+// dirname, filename 생성
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const sequelizeSession = SequelizeStore(session.Store); // 반드시 질문 cjs to ESM
+const app = express();
 
 // session set
 app.use(
   session({
     // Options for express-session
     secret: process.env.SECRET_KEY,
-    store: new SequelizeStore({
-      // Options for connect-session-sequelize
+    store: new sequelizeSession({
+      // Options for connect-session-sequelize // 반드시 질문 cjs to ESM
       db: db.sequelize,
       tableName: "sessions",
     }),
@@ -60,6 +68,5 @@ async function startServer() {
 }
 
 startServer();
-(async () => {
-  await sequelizeLoader.synchronize(db);
-})()
+// DB load and set
+await synchronize(db);

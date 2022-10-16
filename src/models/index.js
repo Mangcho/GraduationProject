@@ -1,15 +1,16 @@
-require('dotenv').config();
+import "../settings/env/env.js";
 const env = process.env;
 
-const { Sequelize, DataTypes } = require("sequelize");
-const config = require("../settings/sequelize/config.js")[env.NODE_ENV];
+import { Sequelize, DataTypes } from 'sequelize';
+import {development, production } from "../settings/sequelize/config.js"
+const config = development;
 
 // Model Import
-const Whitelist = require('./whitelist');
-const User = require('./user.js');
-const Rasbpi = require('./rasbpi.js');
+import Whitelist from "./whitelist.js";
+import User from "./user.js";
+import Rasbpi from "./rasbpi.js";
 
-const db = Sequelize;
+export const db = Sequelize;
 
 const sequelize = new Sequelize(
   config.database,
@@ -33,5 +34,3 @@ Rasbpi.init(sequelize);
 Whitelist.associate(db);
 Rasbpi.associate(db);
 User.associate(db);
-
-module.exports = db;

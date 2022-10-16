@@ -21,7 +21,6 @@
 고유한 IP를 가지고 있으며, 사용자의 REST 기반의 요청을 받아주는 ReactJS와 요청을 받아 처리하는 ExpressJS가 존재합니다.
 웹 페이지에 대한 Routing은 React가 담당하며, 필요한 처리를 Axios를 통해 백엔드 서버와 통신하여 처리를 하게 됩니다.
 
-
 ## 디렉토리 설명
 
 1. ~~/public~~ : React.js에서 빌드된 파일들이 존재하는 곳입니다. 본 디렉토리에서는 다루지 않습니다.
@@ -44,6 +43,8 @@
 ### ERD
 
 ![DB ERD](https://user-images.githubusercontent.com/46319374/193069231-e9609a01-2dbf-4145-8fc3-1b52f4773c06.jpg)
+
+**ERD Outdated**
 
 1. whitelists : 서버에 라즈베리파이를 IMEI값을 바탕으로 등록하기 위한 테이블입니다.
 2. users : 어떤 계정의 소유자가 어떤 라즈베리파이를 사용하는지, 또한 동시에 어떤 정보를 가지고 있는지를 확인할 수 있는 테이블입니다.

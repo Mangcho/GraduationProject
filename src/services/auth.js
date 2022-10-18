@@ -15,11 +15,10 @@ export default class AuthService {
                 id: newUserDto.id, password: hashedPW, whitelist_imei: newUserDto.imei,
                 name: newUserDto.name, age: newUserDto.age
             });
-            return newUser === null ? false : true
+            return newUser; // 생성이 불가능한 경우에는 error
         } catch (error) {
-            console.log("SignUp Service error", error);
+            console.log("SignUp Service", error);
         }
-
     }
 
     /**
@@ -28,7 +27,6 @@ export default class AuthService {
      */
     async SignIn(compareUserDto) { // log-in
         try {
-
             const hashedPW = GetHash(compareUserDto.password);
             // test, testFunc는 로그인 테스트용 차후 삭제할 예정
             const test = await WhitelistModel.create({ imei: "1234567890" })
@@ -40,10 +38,26 @@ export default class AuthService {
                     password: hashedPW
                 }
             })
-            console.log(isUserExist);
-            return isUserExist === null ? false : true
-        } catch {
-            // Something Error catch
+            return isUserExist === null ? false : true // select 문에서 없을경우 null
+        } catch (error) {
+            console.log("SignIn Service", error);
+        }
+    }
+
+    /**
+     * 사용자가 입력한 Imei값을 검증하는 서비스
+     * @param {Object} checkImeiDto - 사용자가 회원가입을 위해 입력한 Imei값이 저장되어 있음
+     */
+    async CheckImei(checkImeiDto) { // log-in
+        try {
+            const isImeiExist = await WhitelistModel.findOne({
+                where: {
+                    imei: checkImeiDto.imei
+                }
+            })
+            return isImeiExist === null ? false : true
+        } catch (error) {
+            console.log("CheckImei Service", error);
         }
     }
 }

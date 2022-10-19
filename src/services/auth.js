@@ -2,7 +2,7 @@ import UserModel from "../models/user.js";
 import WhitelistModel from "../models/whitelist.js";
 import GetHash from "../utils/crypt.js"; // utils
 
-export default class AuthService {
+export class AuthService {
 
     /**
     * 계정 생성을 처리하는 서비스

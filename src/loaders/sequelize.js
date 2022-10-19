@@ -1,5 +1,5 @@
 //const db = require("./models");
-export default async function synchronize(db) {
+export async function synchronize(db) {
 
     try {
         const response = await db.sequelize

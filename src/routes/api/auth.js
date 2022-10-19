@@ -1,5 +1,5 @@
 import express from "express";
-import { body, validationResult } from "express-validator";
+import { header, body, validationResult } from "express-validator";
 import { wrapper } from "../../utils/wrapper.js"; // async wrapper
 import { AuthService } from "../../services/auth.js";
 
@@ -17,7 +17,7 @@ router.post(
     }
     const compareUserDto = { id: req.body.id, password: req.body.password };
     const state = await auth.SignIn(compareUserDto);
-    req.session.isAuth = state ? true : false;
+    req.session.isAuth = (state == true ? compareUserDto.id : null);
     return res.json({ state });
   })
 );
@@ -59,5 +59,26 @@ router.post(
     return res.json({ state });
   })
 );
+
+router.put(
+  "/password",
+  body("password").notEmpty(),
+  header("session.isAuth").exists(),
+  wrapper(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json({ errors: errors.array() });
+    }
+    const changePasswordDto = { id: req.session.isAuth, password: req.body.password };
+    const state = await auth.ChangePassword(changePasswordDto);
+  })
+);
+
+router.delete(
+  "/logout",
+  wrapper(async (req, res) => {
+    // something
+  })
+)
 
 export { router as authRouter };

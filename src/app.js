@@ -4,16 +4,17 @@ import "./settings/env/env.js"; //dotenv
 import path from "path";
 import { fileURLToPath } from "url"; // dirname
 import { db } from "./models/index.js";
-import synchronize from "./loaders/sequelize.js";
+import { synchronize } from "./loaders/sequelize.js";
 import session from "express-session";
 import SequelizeStore from "connect-session-sequelize";
 
 // Router import
-import authRouter from "./routes/api/auth.js";
-import piRouter from "./routes/pi.js";
+import { authRouter } from "./routes/api/auth.js";
+import { piRouter } from "./routes/pi.js";
+import { graphRouter } from "./routes/api/graph.js";
 
 // utils import
-import wrapper from "./utils/wrapper.js";
+import { wrapper } from "./utils/wrapper.js";
 
 // dirname, filename 생성
 const __filename = fileURLToPath(import.meta.url);
@@ -44,6 +45,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routings
 app.use("/api/auth", authRouter);
+app.use("/api/graph", graphRouter);
 app.use("/pi", piRouter);
 
 app.get(

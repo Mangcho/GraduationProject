@@ -18,7 +18,7 @@ export default class Whitelist extends Model {
                 sequelize, // We need to pass the connection instance
                 modelName: 'whitelist', // We need to choose the model name
                 timestamps: true,
-                updatedAt: false,
+                updatedAt: true,
                 paranoid: true, // deletedAt
                 charset: 'utf8',
                 collate: 'utf8_general_ci'

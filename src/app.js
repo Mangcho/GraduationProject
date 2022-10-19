@@ -4,7 +4,6 @@ import "./settings/env/env.js"; //dotenv
 import path from "path";
 import { fileURLToPath } from "url"; // dirname
 import { db } from "./models/index.js";
-import { synchronize } from "./loaders/sequelize.js";
 import session from "express-session";
 import SequelizeStore from "connect-session-sequelize";
 
@@ -12,6 +11,10 @@ import SequelizeStore from "connect-session-sequelize";
 import { authRouter } from "./routes/api/auth.js";
 import { piRouter } from "./routes/pi.js";
 import { graphRouter } from "./routes/api/graph.js";
+
+// Loaders import
+import { synchronize } from "./loaders/sequelize.js";
+import { Test } from "./loaders/test.js";
 
 // utils import
 import { wrapper } from "./utils/wrapper.js";
@@ -71,3 +74,7 @@ async function startServer() {
 startServer();
 // DB load and set
 await synchronize(db);
+
+// Test code
+const TestService = new Test();
+TestService.syncData();

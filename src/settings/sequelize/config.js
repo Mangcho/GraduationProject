@@ -2,11 +2,12 @@ import "../../settings/env/env.js";
 const env = process.env;
 
 const development = {
-  username: env.DB_USER,
-  password: env.DB_PW,
-  database: env.DB_NAME,
-  host: env.DB_HOST,
+  username: env.DB_USER || 'root',
+  password: env.DB_PW || 'password',
+  database: env.DB_NAME || 'database',
+  host: env.DB_HOST || 'localhost',
   dialect: "mariadb",
+  timezone: env.DB_TIMEZONE,
   pool: {
     max: 30,
     min: 0,
@@ -17,12 +18,13 @@ const development = {
 };
 
 const production = {
-  username: env.DB_USER,
-  password: env.DB_PW,
-  database: env.DB_NAME,
-  host: env.DB_HOST,
+  username: env.DB_USER || 'root',
+  password: env.DB_PW || 'password',
+  database: env.DB_NAME || 'database',
+  host: env.DB_HOST || 'localhost',
   dialect: "mariadb",
   logging: false,
+  timezone: env.DB_TIMEZONE,
   pool: {
     max: 30,
     min: 0,

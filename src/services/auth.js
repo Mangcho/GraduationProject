@@ -12,7 +12,7 @@ export class AuthService {
         try {
             const hashedPW = GetHash(createUserDto.password);
             const newUser = await UserModel.create({
-                id: createUserDto.id, password: hashedPW, whitelist_imei: createUserDto.imei,
+                email: createUserDto.email, password: hashedPW, whitelist_imei: createUserDto.imei,
                 name: createUserDto.name, age: createUserDto.age
             });
             return newUser; // 생성이 불가능한 경우에는 error
@@ -30,7 +30,7 @@ export class AuthService {
             const hashedPW = GetHash(compareUserDto.password);
             const isUserExist = await UserModel.findOne({
                 where: {
-                    id: compareUserDto.id,
+                    email: compareUserDto.email,
                     password: hashedPW
                 }
             })
@@ -49,7 +49,7 @@ export class AuthService {
             const hashedPW = GetHash(logoutUserDto.password);
             const isUserExist = await UserModel.findOne({
                 where: {
-                    id: logoutUserDto.id,
+                    email: logoutUserDto.email,
                     password: hashedPW
                 }
             })
@@ -85,7 +85,7 @@ export class AuthService {
             const hashedPW = GetHash(changePasswordDto.password);
             const changePassword = await UserModel.update({ password: hashedPW }, {
                 where: {
-                    id: changePasswordDto.id
+                    email: changePasswordDto.email
                 }
             })
             return changePassword === null ? false : true

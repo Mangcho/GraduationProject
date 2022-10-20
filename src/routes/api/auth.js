@@ -8,23 +8,23 @@ const router = express.Router();
 
 router.post(
   "/login",
-  body("id").notEmpty().isEmail(),
+  body("email").notEmpty().isEmail(),
   body("password").notEmpty(),
   wrapper(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.json({ errors: errors.array() });
     }
-    const compareUserDto = { id: req.body.id, password: req.body.password };
+    const compareUserDto = { email: req.body.email, password: req.body.password };
     const state = await auth.SignIn(compareUserDto);
-    req.session.isAuth = (state == true ? compareUserDto.id : null);
+    req.session.isAuth = (state == true ? compareUserDto.email : null);
     return res.json({ state });
   })
 );
 
 router.post(
   "/register",
-  body("id").notEmpty().isEmail(),
+  body("email").notEmpty().isEmail(),
   body("password").notEmpty(),
   body("name").notEmpty(),
   body("age").notEmpty().isInt(),
@@ -35,7 +35,7 @@ router.post(
       return res.json({ errors: errors.array() });
     }
     const createUserDto = {
-      id: req.body.id,
+      email: req.body.email,
       password: req.body.password,
       name: req.body.name,
       age: req.body.age,
@@ -77,7 +77,8 @@ router.put(
 router.delete(
   "/logout",
   wrapper(async (req, res) => {
-    // something
+    req.session.destroy();
+    // DB에서 삭제..?
   })
 )
 

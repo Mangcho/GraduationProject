@@ -4,10 +4,15 @@ export default class Whitelist extends Model {
     static init(sequelize) {
         super.init(
             {
+                id: {
+                    type: DataTypes.INTEGER.UNSIGNED,
+                    autoIncrement: true,
+                    primaryKey: true
+                },
                 imei: {
                     type: DataTypes.STRING(10),
                     allowNull: false,
-                    primaryKey: true,
+                    unique: true,
                     validate: {
                         isAlphanumeric: true,
                         len: [10]

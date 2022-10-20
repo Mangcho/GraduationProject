@@ -5,9 +5,14 @@ export default class User extends Model {
         super.init(
             {
                 id: {
+                    type: DataTypes.INTEGER.UNSIGNED,
+                    autoIncrement: true,
+                    primaryKey: true
+                },
+                email: {
                     type: DataTypes.STRING(40),
                     allowNull: false,
-                    primaryKey: true,
+                    unique: true,
                     validate: {
                         isEmail: true,
                         len: [3, 35]

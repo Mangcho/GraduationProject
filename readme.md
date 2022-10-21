@@ -44,8 +44,6 @@
 
 ![ERD](https://user-images.githubusercontent.com/46319374/197136999-bff55ff6-5208-4f9b-a78a-68d7e3643c46.jpg)
 
-**ERD Outdated**
-
 1. whitelists : 서버에 라즈베리파이를 IMEI값을 바탕으로 등록하기 위한 테이블입니다.
 2. users : 어떤 계정의 소유자가 어떤 라즈베리파이를 사용하는지, 또한 동시에 어떤 정보를 가지고 있는지를 확인할 수 있는 테이블입니다.
 3. rasbpies : IMEI 값으로 라즈베리파이를 구분하며, 매 초마다 라즈베리파이에서의 센서 데이터와 처리된 정보 데이터를 수신합니다.

@@ -42,7 +42,7 @@
 
 ### ERD
 
-![DB ERD](https://user-images.githubusercontent.com/46319374/193069231-e9609a01-2dbf-4145-8fc3-1b52f4773c06.jpg)
+![ERD](https://user-images.githubusercontent.com/46319374/197136999-bff55ff6-5208-4f9b-a78a-68d7e3643c46.jpg)
 
 **ERD Outdated**
 

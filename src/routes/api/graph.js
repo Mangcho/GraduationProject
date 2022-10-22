@@ -6,4 +6,9 @@ import { GraphService } from "../../services/graph.js";
 const graph = new GraphService();
 const router = express.Router();
 
+router.post("/usage",
+    wrapper(async (req, res) => {
+
+    }))
+
 export { router as graphRouter };

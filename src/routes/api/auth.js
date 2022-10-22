@@ -15,9 +15,8 @@ router.post(
     if (!errors.isEmpty()) {
       return res.json({ errors: errors.array() });
     }
-    const compareUserDto = { email: req.body.email, password: req.body.password };
+    const compareUserDto = { email: req.body.email, password: req.body.password, session: req.session };
     const state = await auth.SignIn(compareUserDto);
-    req.session.isAuth = (state == true ? compareUserDto.email : null);
     return res.json({ state });
   })
 );
@@ -76,9 +75,15 @@ router.put(
 
 router.delete(
   "/logout",
+  header("session.isAuth").exists(),
   wrapper(async (req, res) => {
-    req.session.destroy();
-    // DB에서 삭제..?
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json({ errors: errors.array() });
+    }
+    const logoutUserDto = { session: req.session }
+    await auth.SignOut(logoutUserDto);
+    return res.sendStatus(200).end();
   })
 )
 

@@ -6,7 +6,7 @@ export class AuthService {
 
     /**
     * 계정 생성을 처리하는 서비스
-    * @param {JSON} createUserDto - User account info
+    * @param {JSON} createUserDto - 사용자가 생성할 계정의 정보를 담고 있는 객체
     */
     async SignUp(createUserDto) {
         try {
@@ -23,7 +23,7 @@ export class AuthService {
 
     /**
      * 로그인을 처리하는 서비스
-     * @param {Object} compareUserDto - 사용자 계정 정보를 담고 있는 객체 id와 password를 가지고 있음
+     * @param {Object} compareUserDto - 사용자 계정 정보를 담고 있는 객체 id와 password 및 세션 정보를 가지고 있음
      */
     async SignIn(compareUserDto) {
         try {
@@ -34,28 +34,27 @@ export class AuthService {
                     password: hashedPW
                 }
             })
-            return isUserExist === null ? false : true // select 문에서 없을경우 null
+            if (isUserExist === null) { // select 문에서 없을경우 null
+                return false;
+            } else { // 세션 저장 및 결과값 리턴
+                compareUserDto.session.save();
+                compareUserDto.session.isAuth = compareUserDto.email;
+                return true;
+            }
         } catch (error) {
             console.log("SignIn Service", error);
         }
     }
 
     /**
-     * 로그인을 처리하는 서비스
-     * @param {Object} logoutUserDto - 사용자 계정 정보를 담고 있는 객체 id와 password를 가지고 있음
+     * 사용자의 로그아웃 요청에 따라 사용자의 세션을 삭제하는 서비스
+     * @param {Object} logoutUserDto - req.session이 있음
      */
     async SignOut(logoutUserDto) {
         try {
-            const hashedPW = GetHash(logoutUserDto.password);
-            const isUserExist = await UserModel.findOne({
-                where: {
-                    email: logoutUserDto.email,
-                    password: hashedPW
-                }
-            })
-            return isUserExist === null ? false : true // select 문에서 없을경우 null
+            logoutUserDto.session.destroy();
         } catch (error) {
-            console.log("SignIn Service", error);
+            console.log("SignOut Service", error);
         }
     }
 

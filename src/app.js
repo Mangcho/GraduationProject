@@ -30,6 +30,7 @@ const app = express();
 app.use(
   session({
     // Options for express-session
+    httpOnly: true,
     secret: process.env.SECRET_KEY,
     store: new sequelizeSession({
       // Options for connect-session-sequelize // 반드시 질문 cjs to ESM
@@ -39,6 +40,10 @@ app.use(
     saveUninitialized: false,
     resave: false,
     proxy: false,
+    cookie: {
+      sameSite: 'none',
+      httpOnly: true
+    }
   })
 );
 

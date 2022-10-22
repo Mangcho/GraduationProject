@@ -81,7 +81,7 @@ router.delete(
     if (!errors.isEmpty()) {
       return res.json({ errors: errors.array() });
     }
-    const logoutUserDto = { session: req.session }
+    const logoutUserDto = { session: req.session, sid: req.sessionID }
     await auth.SignOut(logoutUserDto);
     return res.sendStatus(200).end();
   })

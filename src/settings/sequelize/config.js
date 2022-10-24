@@ -6,7 +6,7 @@ const development = {
   password: env.DB_PW || 'password',
   database: env.DB_NAME || 'database',
   host: env.DB_HOST || 'localhost',
-  dialect: "mariadb",
+  dialect: 'mariadb',
   timezone: env.DB_TIMEZONE,
   pool: {
     max: 30,
@@ -22,7 +22,7 @@ const production = {
   password: env.DB_PW || 'password',
   database: env.DB_NAME || 'database',
   host: env.DB_HOST || 'localhost',
-  dialect: "mariadb",
+  dialect: 'mariadb',
   logging: false,
   timezone: env.DB_TIMEZONE,
   pool: {

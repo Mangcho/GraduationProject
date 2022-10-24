@@ -56,7 +56,6 @@ export class AuthService {
      */
     async SignOut(logoutUserDto) {
         try {
-            console.log(logoutUserDto.session.id)
             logoutUserDto.session.destroy(logoutUserDto.session.id);
         } catch (error) {
             console.log("SignOut Service", error);

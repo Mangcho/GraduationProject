@@ -62,26 +62,27 @@ router.post(
 router.put(
   "/password",
   body("password").notEmpty(),
-  header("session.isAuth").exists(),
+  //header("session.isAuth").exists(),
   wrapper(async (req, res) => {
+    console.log(req);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.json({ errors: errors.array() });
     }
-    const changePasswordDto = { id: req.session.isAuth, password: req.body.password };
+    const changePasswordDto = { sid: req.sessionID, newPassword: req.body.password };
     const state = await auth.ChangePassword(changePasswordDto);
+    return state;
   })
 );
 
 router.delete(
   "/logout",
-  header("session.isAuth").exists(),
   wrapper(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.json({ errors: errors.array() });
     }
-    const logoutUserDto = { session: req.session, sid: req.sessionID }
+    const logoutUserDto = { session: req.session }
     await auth.SignOut(logoutUserDto);
     return res.sendStatus(200).end();
   })

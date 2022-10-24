@@ -32,14 +32,16 @@ app.use(
     // Options for express-session
     httpOnly: true,
     secret: process.env.SECRET_KEY,
+    saveUninitialized: false,
+    resave: false,
+    proxy: false,
     store: new sequelizeSession({
       // Options for connect-session-sequelize // 반드시 질문 cjs to ESM
       db: db.sequelize,
       table: "sessions",
-    }),
-    saveUninitialized: false,
-    resave: false,
-    proxy: false
+      checkExpirationInterval: 15 * 60 * 1000, // 15분
+      expiration: 60 * 60 * 1000 // 한시간
+    })
   })
 );
 

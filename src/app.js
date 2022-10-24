@@ -35,15 +35,11 @@ app.use(
     store: new sequelizeSession({
       // Options for connect-session-sequelize // 반드시 질문 cjs to ESM
       db: db.sequelize,
-      tableName: "sessions",
+      table: "sessions",
     }),
     saveUninitialized: false,
     resave: false,
-    proxy: false,
-    cookie: {
-      sameSite: 'none',
-      httpOnly: true
-    }
+    proxy: false
   })
 );
 
@@ -82,4 +78,6 @@ await synchronize(db);
 
 // Test code
 const TestService = new Test();
-TestService.syncData();
+if (process.env.NODE_ENV == 'development') {
+  TestService.syncData();
+}

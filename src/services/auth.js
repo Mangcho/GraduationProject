@@ -36,13 +36,15 @@ export class AuthService {
                 where: {
                     email: compareUserDto.email,
                     password: hashedPW
-                }
+                },
+                raw:true
             })
             if (isUserExist === null) { // select 문에서 없을경우 null
                 return false;
             } else { // 세션 저장 및 결과값 리턴
                 compareUserDto.session.save();
                 compareUserDto.session.eid = compareUserDto.email;
+                compareUserDto.session.imei = isUserExist.whitelist_imei;
                 return true;
             }
         } catch (error) {

@@ -40,8 +40,8 @@ app.use(
       db: db.sequelize,
       table: "sessions",
       checkExpirationInterval: 15 * 60 * 1000, // 15분
-      expiration: 60 * 60 * 1000 // 한시간
-    })
+      expiration: 60 * 60 * 1000, // 한시간
+    }),
   })
 );
 
@@ -80,6 +80,10 @@ await synchronize(db);
 
 // Test code
 const TestService = new Test();
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV == "development") {
   TestService.syncData();
+  setTimeout(()=> {
+    TestService.selectPi();
+  }, 2000)
+  
 }

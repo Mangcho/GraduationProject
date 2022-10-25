@@ -8,8 +8,6 @@ const router = express.Router();
 
 router.post(
     "/liveState",
-    body('imei').notEmpty(),
-    header('session.eid').notEmpty(),
     header('session.imei').notEmpty(),
     wrapper(async (req, res) => {
         const errors = validationResult(req);
@@ -17,9 +15,8 @@ router.post(
             return res.json({ errors: errors.array() });
         }
         const getStatusDto = { imei: req.session.data.imei }
-        //id ..?
-        const state = await sendLiveStatus(getStatusDto);
-
+        const calDataPerSecond = await graph.sendLiveStatus(getStatusDto);
+        return res.json(calDataPerSecond);
     })
 )
 

@@ -14,7 +14,7 @@ export class GraphService {
       const currentTime = new Date();
       const pastTime = currentTime - 2000;
       const getSecondSensorResult = await RasbpiModel.findAndCountAll({
-        attributes: ['result'],
+        attributes: ["result"],
         where: {
           [Op.and]: [
             { whitelist_imei: getStatusDto.imei },
@@ -24,9 +24,13 @@ export class GraphService {
         limit: 10,
         raw: true,
       });
+      if (getSecondSensorResult.count === 0) {
+        return null;
+      }
 
       let sumBackforth = 0;
-      let sumleftRight = 0;
+      let sumRight = 0;
+      let sumLeft;
       let sumAccuracy = 0;
 
       /* 
@@ -34,20 +38,24 @@ export class GraphService {
       both = 허리가 좌우를 기준으로 정상범위 이내인가? -2: 왼쪽 치우침, -1: 왼쪽 조금 치우침, 0: 정상, 1: 오른쪽 약간 치우침, 2: 오른쪽 치우침 
       accuracy = 현재 움직이는 중인가? 0: 움직임 없음, 1: 움직임 조금 있음 2: 매우 움직임
       */
-      getSecondSensorResult.rows.forEach((element) => { // 실제로  1 ~ 10개중 몇개가 들어올지 모르므로 forEach 사용
+      getSecondSensorResult.rows.forEach((element) => {
+        // 실제로  1 ~ 10개중 몇개가 들어올지 모르므로 forEach 사용
         sumBackforth += element.result.backforth;
-        sumleftRight += element.result.both;
+        element.result.both < 0
+          ? (sumLeft += element.result.both)
+          : (sumRight += element.result.both);
         sumAccuracy += element.result.accuracy;
-      })
+      });
 
       // 부동소수점이 아닌 고정소수점으로 반환
       const avgSensorResult = {
         count: getSecondSensorResult.count,
         avgBackforth: (sumBackforth / getSecondSensorResult.count).toFixed(1),
-        avgLeftRight: (sumleftRight / getSecondSensorResult.count).toFixed(1),
+        avgLeft: (sumLeft / getSecondSensorResult.count).toFixed(1),
+        avgRight: (sumRight / getSecondSensorResult.count).toFixed(1),
         avgAccuracy: (sumAccuracy / getSecondSensorResult.count).toFixed(1),
-        original: getSecondSensorResult.rows
-      }
+        original: getSecondSensorResult.rows,
+      };
 
       return avgSensorResult;
     } catch (error) {

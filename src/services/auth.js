@@ -87,14 +87,10 @@ export class AuthService {
      */
     async ChangePassword(changePasswordDto) { // log-in
         try {
-            console.log("hi", changePasswordDto.sid)
             const hashedPW = GetHash(changePasswordDto.newPassword);
             const changePassword = await UserModel.update({ password: hashedPW }, {
-                include: [{
-                    model: "sessions",
-                }],
                 where: {
-                    sid: changePasswordDto.sid
+                    id : changePasswordDto.session.eid
                 }
             })
             return changePassword === null ? false : true

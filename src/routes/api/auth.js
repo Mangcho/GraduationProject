@@ -3,7 +3,7 @@ import { header, body, validationResult } from "express-validator";
 import { wrapper } from "../../utils/wrapper.js"; // async wrapper
 import { AuthService } from "../../services/auth.js";
 
-const auth = new AuthService();
+const authService = new AuthService();
 const router = express.Router();
 
 router.post(
@@ -16,7 +16,7 @@ router.post(
       return res.json({ errors: errors.array() });
     }
     const compareUserDto = { email: req.body.email, password: req.body.password, session: req.session };
-    const state = await auth.SignIn(compareUserDto);
+    const state = await authService.SignIn(compareUserDto);
     return res.json({ state });
   })
 );
@@ -40,7 +40,7 @@ router.post(
       age: req.body.age,
       imei: req.body.imei,
     };
-    const state = await auth.SignUp(createUserDto);
+    const state = await authService.SignUp(createUserDto);
     return res.json({ state });
   })
 );
@@ -54,7 +54,7 @@ router.post(
       return res.json({ errors: errors.array() });
     }
     const checkImeiDto = { imei: req.body.imei };
-    const state = await auth.CheckImei(checkImeiDto);
+    const state = await authService.CheckImei(checkImeiDto);
     return res.json({ state });
   })
 );
@@ -69,8 +69,8 @@ router.put(
     if (!errors.isEmpty()) {
       return res.json({ errors: errors.array() });
     }
-    const changePasswordDto = { sid: req.sessionID, newPassword: req.body.password };
-    const state = await auth.ChangePassword(changePasswordDto);
+    const changePasswordDto = { session: req.session, newPassword: req.body.password };
+    const state = await authService.ChangePassword(changePasswordDto);
     return state;
   })
 );
@@ -83,7 +83,7 @@ router.delete(
       return res.json({ errors: errors.array() });
     }
     const logoutUserDto = { session: req.session }
-    await auth.SignOut(logoutUserDto);
+    await authService.SignOut(logoutUserDto);
     return res.sendStatus(200).end();
   })
 )

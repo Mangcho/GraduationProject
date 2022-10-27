@@ -82,8 +82,4 @@ await synchronize(db);
 const TestService = new Test();
 if (process.env.NODE_ENV == "development") {
   TestService.syncData();
-  setTimeout(()=> {
-    TestService.selectPi();
-  }, 2000)
-  
 }

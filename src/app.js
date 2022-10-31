@@ -81,5 +81,5 @@ await synchronize(db);
 // Test code
 const TestService = new Test();
 if (process.env.NODE_ENV == "development") {
-  TestService.syncData();
+  //TestService.syncData();
 }

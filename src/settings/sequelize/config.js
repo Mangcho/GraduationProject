@@ -7,8 +7,13 @@ const development = {
   database: env.DB_NAME || 'database',
   host: env.DB_HOST || 'localhost',
   dialect: 'mariadb',
-  timezone: env.DB_TIMEZONE,
-  pool: {
+  dialectOptions: {
+    useUTC: false, // for reading from database
+    dateStrings: true,
+    typeCast: true,
+  },
+  timezone: "+09:00",
+  pool: { 
     max: 30,
     min: 0,
     acquire: 30000,
@@ -23,6 +28,11 @@ const production = {
   database: env.DB_NAME || 'database',
   host: env.DB_HOST || 'localhost',
   dialect: 'mariadb',
+  dialectOptions: {
+    useUTC: false, // for reading from database
+    dateStrings: true,
+    typeCast: true,
+  },
   logging: false,
   timezone: env.DB_TIMEZONE,
   pool: {

@@ -1,14 +1,14 @@
 import "../settings/env/env.js";
 const env = process.env;
-
 import { Sequelize, DataTypes } from 'sequelize';
-import {development, production } from "../settings/sequelize/config.js"
-const config = development;
+import { development, production } from "../settings/sequelize/config.js"
+const config = env.NODE_ENV === "development" ? development : production
 
 // Model Import
-import Whitelist from "./whitelist.js";
-import User from "./user.js";
-import Rasbpi from "./rasbpi.js";
+import WhitelistModel from "./whitelist.js";
+import UserModel from "./user.js";
+import RasbpiModel from "./rasbpi.js";
+import SessionModel from "./session.js";
 
 export const db = Sequelize;
 
@@ -21,16 +21,18 @@ const sequelize = new Sequelize(
 
 // Linking model to db
 db.sequelize = sequelize;
-db.whitelist = Whitelist;
-db.user = User;
-db.data = Rasbpi;
+db.whitelist = WhitelistModel;
+db.user = UserModel;
+db.data = RasbpiModel;
+db.session = SessionModel;
 
 // Model Init
-Whitelist.init(sequelize);
-User.init(sequelize);
-Rasbpi.init(sequelize);
+WhitelistModel.init(sequelize);
+UserModel.init(sequelize);
+RasbpiModel.init(sequelize);
+SessionModel.init(sequelize);
 
 // Model Association
-Whitelist.associate(db);
-Rasbpi.associate(db);
-User.associate(db);
+WhitelistModel.associate(db);
+UserModel.associate(db);
+RasbpiModel.associate(db);

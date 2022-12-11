@@ -4,7 +4,7 @@ export default class Rasbpi extends Model { // Not finished
     static init(sequelize) {
         super.init(
             {
-                index: {
+                id: {
                     type: DataTypes.INTEGER.UNSIGNED,
                     autoIncrement: true,
                     primaryKey: true
@@ -17,10 +17,6 @@ export default class Rasbpi extends Model { // Not finished
                         len: [10]
                     }
                 },
-                timestamp: {
-                    type: DataTypes.DATE,
-                    allowNull: false,
-                },
                 raw: {
                     type: DataTypes.JSON,
                     allowNull: false,
@@ -28,14 +24,18 @@ export default class Rasbpi extends Model { // Not finished
                 result: {
                     type: DataTypes.JSON,
                     allowNull: true,
+                },
+                createdAt: {
+                    type: DataTypes.DATE,
+                    allowNull: false,
                 }
             },
             {
                 sequelize, // We need to pass the connection instance
                 modelName: 'rasbpies', // We need to choose the model name
                 timestamps: true,
-                createdAt: false,
-                updatedAt: false,
+                createdAt: true,
+                updatedAt: true,
                 paranoid: true, // deletedAt
                 charset: 'utf8',
                 collate: 'utf8_general_ci'

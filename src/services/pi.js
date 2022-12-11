@@ -1,6 +1,6 @@
-import  RasbpiModel from "../models/rasbpi.js";
-export default class piDataService {
-  constructor() { }
+import RasbpiModel from "../models/rasbpi.js";
+export class piDataService {
+  constructor() {}
   /**
    * DB로 라즈베리파이의 센서 데이터를 저장하기 위해 사용
    * @param {Object} insertPiSensorDto - 라즈베리파이 센서 데이터값
@@ -9,13 +9,13 @@ export default class piDataService {
     try {
       const isPiSensorAccepted = await RasbpiModel.create({
         whitelist_imei: insertPiSensorDto.imei,
-        timestamp: insertPiSensorDto.timestamp,
         raw: insertPiSensorDto.raw,
+        result: insertPiSensorDto.result,
+        createdAt: insertPiSensorDto.createdAt,
       });
-      console.log(typeof (isPiSensorAccepted))
-      return isPiSensorAccepted === null ? false : true
+      return isPiSensorAccepted ? true : false;
     } catch (error) {
-      console.log(error)
+      console.log("SaveData Service", error);
     }
   }
 }

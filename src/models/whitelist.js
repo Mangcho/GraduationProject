@@ -4,10 +4,15 @@ export default class Whitelist extends Model {
     static init(sequelize) {
         super.init(
             {
+                id: {
+                    type: DataTypes.INTEGER.UNSIGNED,
+                    autoIncrement: true,
+                    primaryKey: true
+                },
                 imei: {
                     type: DataTypes.STRING(10),
                     allowNull: false,
-                    primaryKey: true,
+                    unique: true,
                     validate: {
                         isAlphanumeric: true,
                         len: [10]
@@ -18,7 +23,7 @@ export default class Whitelist extends Model {
                 sequelize, // We need to pass the connection instance
                 modelName: 'whitelist', // We need to choose the model name
                 timestamps: true,
-                updatedAt: false,
+                updatedAt: true,
                 paranoid: true, // deletedAt
                 charset: 'utf8',
                 collate: 'utf8_general_ci'
